@@ -1,14 +1,24 @@
 {
   "name": "recipe-share-frontend",
+  "proxy": "https://recipe-share-backend-production.up.railway.app/v1/api",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@headlessui/react": "^1.7.19",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "axios": "^1.6.8",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.1",
+    "lucide-react": "^0.376.0",
     "react": "^18.3.0",
     "react-dom": "^18.3.0",
+    "react-router-dom": "^6.23.0",
     "react-scripts": "5.0.1",
+    "sweetalert2": "^11.10.8",
+    "tailwind-merge": "^2.3.0",
+    "tailwindcss-animate": "^1.0.7",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
