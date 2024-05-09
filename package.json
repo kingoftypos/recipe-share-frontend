@@ -1,6 +1,5 @@
 {
   "name": "recipe-share-frontend",
-  "proxy": "https://recipe-share-backend-production.up.railway.app/v1/api",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
