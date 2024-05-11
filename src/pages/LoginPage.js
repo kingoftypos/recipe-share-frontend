@@ -1,27 +1,29 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { baseURL } from "../baseURL";
 import Swal from "sweetalert2";
 
-const LoginPage= ()=>{
+const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
   // axios.defaults.withCredentials=true;
-  const submitHandler= async (e)=>{
+  const submitHandler = async (e) => {
     e.preventDefault();
-    try{
-        await axios.post(`${baseURL}/user/login`,{
-          email,
-          password
-        });
-        navigate("/");
-    }
-    catch(err)
-    {
-      setError(err)
+    try {
+      await axios.post(`${baseURL}/user/login`, {
+        email,
+        password,
+      });
+      Swal.fire({
+        icon: "success",
+        title: "Login Successful ",
+      });
+      navigate("/");
+    } catch (err) {
+      setError(err);
       Swal.fire({
         title: "Error!",
         text: error,
@@ -30,8 +32,8 @@ const LoginPage= ()=>{
       });
     }
   };
-  return(
-<div className="container mx-auto border border-solid border-black border-2">
+  return (
+    <div className="container mx-auto border border-solid border-black border-2">
       <h2 className="text-3xl font-sans">Login</h2>
       <form onSubmit={submitHandler} className="">
         <div>
@@ -50,8 +52,11 @@ const LoginPage= ()=>{
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
-        <button type="submit" className="">Login</button>
+        <button type="submit" className="">
+          Login
+        </button>
       </form>
-    </div>  );
-}
+    </div>
+  );
+};
 export default LoginPage;
