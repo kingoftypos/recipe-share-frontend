@@ -6,11 +6,12 @@ import { Link } from "react-router-dom";
 import HeroSection from "../components/Herosection";
 import RandomRecipe from "../components/RandomRecipe";
 import Card from "../components/Card";
+import CardSection from "../components/CardSection";
 const Home = () => {
   return (
     <div>
       <HeroSection />
-      {/* <Card id="6628fbee2c3b3029d8cc4a1b" /> */}
+      <CardSection/>
       <RandomRecipe />
     </div>
   );
