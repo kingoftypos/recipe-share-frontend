@@ -15,7 +15,7 @@ function App() {
         <Route path="/" element={<Home />} />;
         <Route path="/recipe/:id" element={<RecipeDetailPage />} />;
       </Routes>
-      <Card id="6628fbee2c3b3029d8cc4a1b"/>
+      {/* <Card id="6628fbee2c3b3029d8cc4a1b"/> */}
     </div>
   );
 }

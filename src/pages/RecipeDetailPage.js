@@ -8,7 +8,7 @@ const RecipeDetailPage = () => {
   let { id } = useParams();
   const [recipe, setRecipe] = useState([]);
   const [steps, setSteps] = useState([]);
-  const [mainingridents, setMainingridents] = useState([]);
+  const [mainIngridents, setMainIngridents] = useState([]);
   const [allIngridents, setAllIngridents] = useState([]);
   useEffect(() => {
     (async () => {
@@ -16,8 +16,8 @@ const RecipeDetailPage = () => {
       console.log(res.data);
       setRecipe(res.data);
       setSteps(res.data.steps);
-      setMainingridents(res.data.mainingredients);
-      setAllIngridents(res.data.allingredients);
+      setMainIngridents(res.data.mainIngredients);
+      setAllIngridents(res.data.allIngredients);
       //console.log(steps);
     })();
   }, [setRecipe]);
@@ -25,7 +25,7 @@ const RecipeDetailPage = () => {
     <div className="mt-2">
       <div className="">
         <img
-          src={recipe.coverimg}
+          src={recipe.coverImg}
           className="h-56 w-3/4 mx-auto object-cover"
         />
         <div className="flex mx-16">
@@ -34,7 +34,7 @@ const RecipeDetailPage = () => {
               <h2 className="text-4xl text-gray-900 text-black mt-4 ml-28 flex flex-row gap-4 flex items-center ">
                 {" "}
                 {recipe.title}
-                {recipe.isveg ? (
+                {recipe.isVeg ? (
                   <FaCircle
                     style={{
                       color: "green",
@@ -55,7 +55,7 @@ const RecipeDetailPage = () => {
                 )}
               </h2>
               <span className="ml-28 mb-6 mt-4 text-s">
-                By {recipe.createdby}
+                By {recipe.createdBy}
               </span>
               <p className="ml-28 w-2/3"> {recipe.description} </p>
               <div className="w-3/4 ml-28">
@@ -76,7 +76,7 @@ const RecipeDetailPage = () => {
           <div className="w-1/4 mt-5">
             <div>
               <h2 className="text-xl mb-4">Main Ingridients</h2>
-              {mainingridents.map((mainingrident) => {
+              {mainIngridents.map((mainingrident) => {
                 return (
                   <div class="flex items-center mb-4 ">
                     <input
@@ -104,7 +104,7 @@ const RecipeDetailPage = () => {
                 })}
               </ul>
             </div>
-            <div>
+            <div className="mb-5">
               <h2 className="text-xl mb-4 mt-8">Other Information</h2>
 
               <div className="w-2/3">
