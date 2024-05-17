@@ -8,7 +8,7 @@ const SignUpPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  //console.log(`${baseURL}/user/register`);
+  
   const navigate = useNavigate();
   const submitHandler = async (e) => {
     e.preventDefault();
