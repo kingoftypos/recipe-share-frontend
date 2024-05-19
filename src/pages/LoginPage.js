@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { baseURL } from "../baseURL";
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
+import AuthContext from "../Context";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -11,6 +12,7 @@ const LoginPage = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
   axios.defaults.withCredentials = true;
+  const { setUser } = useContext(AuthContext);
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
@@ -27,6 +29,12 @@ const LoginPage = () => {
           },
         }
       );
+      const res = await axios.get(`${baseURL}/user`, {
+        withCredntials: true,
+        credentials: "include",
+      });
+      console.log(res.data);
+      setUser(res.data);
       Swal.fire({
         icon: "success",
         title: "Login Successful ",

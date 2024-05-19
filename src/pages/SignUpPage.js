@@ -8,7 +8,7 @@ const SignUpPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  
+
   const navigate = useNavigate();
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -35,7 +35,7 @@ const SignUpPage = () => {
     }
   };
   return (
-    <div className="container mx-auto border border-solid border-black border-2">
+    <div className="container mx-auto border-solid border-black border-2">
       <h2 className="text-3xl font-sans">Sign Up</h2>
       <form onSubmit={submitHandler} className="">
         <div className="flex flex-col m-3 max-w-60">
