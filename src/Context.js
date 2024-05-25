@@ -1,9 +1,9 @@
+
+
 import axios from "axios";
 import { createContext, useState, useEffect } from "react";
 import { baseURL } from "./baseURL";
 import Cookies from "js-cookie";
-axios.defaults.withCredentials = true;
-
 const AuthContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {
@@ -39,7 +39,7 @@ export const AuthContextProvider = ({ children }) => {
 
       if (token) {
         const isValid = await axios.get(`${baseURL}/user/protectroute`, {
-          withCredentials: true,
+          withCredntials: true,
           credentials: "include",
         });
         console.log("isvalid: ", isValid);
@@ -72,3 +72,5 @@ export const AuthContextProvider = ({ children }) => {
 };
 
 export default AuthContext;
+
+
