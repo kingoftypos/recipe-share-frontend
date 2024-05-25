@@ -39,7 +39,7 @@ const LoginPage = () => {
         }
       );
       const res = await axios.get(`${baseURL}/user`, {
-        withCredntials: true,
+        withCredentials: true,
         credentials: "include",
       });
       console.log("res data from login: ", res.data);
