@@ -6,6 +6,7 @@ import Header from "./components/Header";
 import Card from "./components/Card";
 import RecipeDetailPage from "./pages/RecipeDetailPage";
 import { AuthContextProvider } from "./Context";
+import CreatePostPage from "./pages/CreatePostPage";
 function App() {
   return (
     <div className="">
@@ -16,6 +17,7 @@ function App() {
           <Route path="/login" element={<LoginPage />} />;
           <Route path="/" element={<Home />} />;
           <Route path="/recipe/:id" element={<RecipeDetailPage />} />;
+          <Route path="/create-recipe" element={<CreatePostPage />} />
         </Routes>
         {/* <Card id="6628fbee2c3b3029d8cc4a1b"/> */}
       </AuthContextProvider>

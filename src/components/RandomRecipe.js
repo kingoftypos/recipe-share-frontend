@@ -2,17 +2,25 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { baseURL } from "../baseURL";
 import RandomRecipeCard from "./RandomRecipeCard";
+axios.defaults.withCredentials = true;
+
 const RandomRecipe = () => {
   const [vegRecipe, setVegRecipe] = useState([]);
   const [nonvegRecipe, setNonVegRecipe] = useState([]);
 
   useEffect(() => {
     (async () => {
-      const vegRecipes = await axios.get(`${baseURL}/recipe`, {
-        params: {
-          isVeg: true,
+      const vegRecipes = await axios.get(
+        `${baseURL}/recipe`,
+        {
+          params: {
+            isVeg: true,
+          },
         },
-      });
+        {
+          withCredentials: true,
+        }
+      );
       const nonvegRecipes = await axios.get(`${baseURL}/recipe`, {
         params: {
           isVeg: false,

@@ -6,15 +6,24 @@ import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
 import AuthContext from "../Context";
 
+axios.defaults.withCredentials = true;
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
-  axios.defaults.withCredentials = true;
-  const { setUser } = useContext(AuthContext);
+
+  const { loginApiCall, setUser, setIsAuthenticated, user } =
+    useContext(AuthContext);
   const submitHandler = async (e) => {
     e.preventDefault();
+
+    // let payload = {
+    //   email,
+    //   password,
+    // };
+    // await loginApiCall(payload);
+
     try {
       await axios.post(
         `${baseURL}/user/login`,
@@ -33,8 +42,11 @@ const LoginPage = () => {
         withCredntials: true,
         credentials: "include",
       });
-      console.log(res.data);
+      console.log("res data from login: ", res.data);
       setUser(res.data);
+
+      setIsAuthenticated(true);
+      console.log("user from login: ", user);
       Swal.fire({
         icon: "success",
         title: "Login Successful ",
