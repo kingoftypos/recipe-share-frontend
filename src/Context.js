@@ -1,14 +1,15 @@
+
+
 import axios from "axios";
 import { createContext, useState, useEffect } from "react";
 import { baseURL } from "./baseURL";
 import Cookies from "js-cookie";
-axios.defaults.withCredentials = true;
-
 const AuthContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState(() => {
     const savedUser = localStorage.getItem("user");
+
     return savedUser ? JSON.parse(savedUser) : null;
   });
 
@@ -17,44 +18,48 @@ export const AuthContextProvider = ({ children }) => {
   });
 
   useEffect(() => {
-    const verifyUser = async () => {
-      try {
-        const token = Cookies.get("token");
-        console.log("token: ", token);
-        console.log("user from context: ", user);
+    // const loginApiCall = async (payload) => {
+    //   await axios.post(`${baseURL}/user/login`, payload, {
+    //     withCredentials: true,
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //   });
+    //   const user = await axios.get(`${baseURL}/user`, {
+    //     withCredentials: true,
+    //     credentials: "include",
+    //   });
+    // };
+    (async () => {
+      console.log("hello world");
 
-        if (token) {
-          const isValid = await axios.get(`${baseURL}/user/protectroute`, {
-            withCredentials: true,
-            credentials: "include",
-          });
-          console.log("isValid: ", isValid);
+      const token = Cookies.get("token");
+      console.log("token: ", token);
+      console.log("user from context: ", user);
 
-          if (isValid.status === 200) {
-            setUser(isValid.data);
-            setIsAuthenticated(true);
-            localStorage.setItem("user", JSON.stringify(isValid.data));
-            localStorage.setItem("isAuthenticated", "true");
-          } else {
-            localStorage.removeItem("user");
-            localStorage.removeItem("isAuthenticated");
-            setIsAuthenticated(false);
-          }
+      if (token) {
+        const isValid = await axios.get(`${baseURL}/user/protectroute`, {
+          withCredntials: true,
+          credentials: "include",
+        });
+        console.log("isvalid: ", isValid);
+        if (isValid.status === 200) {
+          setUser(isValid.data);
+          console.log("user from isvalid: ", user);
+          setIsAuthenticated(true);
+          localStorage.setItem("user", JSON.stringify(isValid.data));
+          localStorage.setItem("isAuthenticated", true);
         } else {
-          console.log("Token not found from context");
           localStorage.removeItem("user");
-          localStorage.removeItem("isAuthenticated");
           setIsAuthenticated(false);
         }
-      } catch (error) {
-        console.error("Error verifying user: ", error);
+      } else {
+        console.log("Token not found from context");
         localStorage.removeItem("user");
         localStorage.removeItem("isAuthenticated");
-        setIsAuthenticated(false);
+        //setIsAuthenticated(false);
       }
-    };
-
-    verifyUser();
+    })();
   }, []);
 
   return (
@@ -67,3 +72,5 @@ export const AuthContextProvider = ({ children }) => {
 };
 
 export default AuthContext;
+
+
