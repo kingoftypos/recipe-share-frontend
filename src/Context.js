@@ -9,7 +9,6 @@ const AuthContext = createContext();
 export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState(() => {
     const savedUser = localStorage.getItem("user");
-
     return savedUser ? JSON.parse(savedUser) : null;
   });
 
@@ -18,48 +17,44 @@ export const AuthContextProvider = ({ children }) => {
   });
 
   useEffect(() => {
-    // const loginApiCall = async (payload) => {
-    //   await axios.post(`${baseURL}/user/login`, payload, {
-    //     withCredentials: true,
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //   });
-    //   const user = await axios.get(`${baseURL}/user`, {
-    //     withCredentials: true,
-    //     credentials: "include",
-    //   });
-    // };
-    (async () => {
-      console.log("hello world");
+    const verifyUser = async () => {
+      try {
+        const token = Cookies.get("token");
+        console.log("token: ", token);
+        console.log("user from context: ", user);
 
-      const token = Cookies.get("token");
-      console.log("token: ", token);
-      console.log("user from context: ", user);
+        if (token) {
+          const isValid = await axios.get(`${baseURL}/user/protectroute`, {
+            withCredentials: true,
+            credentials: "include",
+          });
+          console.log("isValid: ", isValid);
 
-      if (token) {
-        const isValid = await axios.get(`${baseURL}/user/protectroute`, {
-          withCredentials: true,
-          credentials: "include",
-        });
-        console.log("isvalid: ", isValid);
-        if (isValid.status === 200) {
-          setUser(isValid.data);
-          console.log("user from isvalid: ", user);
-          setIsAuthenticated(true);
-          localStorage.setItem("user", JSON.stringify(isValid.data));
-          localStorage.setItem("isAuthenticated", true);
+          if (isValid.status === 200) {
+            setUser(isValid.data);
+            setIsAuthenticated(true);
+            localStorage.setItem("user", JSON.stringify(isValid.data));
+            localStorage.setItem("isAuthenticated", "true");
+          } else {
+            localStorage.removeItem("user");
+            localStorage.removeItem("isAuthenticated");
+            setIsAuthenticated(false);
+          }
         } else {
+          console.log("Token not found from context");
           localStorage.removeItem("user");
+          localStorage.removeItem("isAuthenticated");
           setIsAuthenticated(false);
         }
-      } else {
-        console.log("Token not found from context");
+      } catch (error) {
+        console.error("Error verifying user: ", error);
         localStorage.removeItem("user");
         localStorage.removeItem("isAuthenticated");
-        //setIsAuthenticated(false);
+        setIsAuthenticated(false);
       }
-    })();
+    };
+
+    verifyUser();
   }, []);
 
   return (
