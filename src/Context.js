@@ -16,6 +16,7 @@ export const AuthContextProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(() => {
     return localStorage.getItem("isAuthenticated") === "true";
   });
+  const [token,setToken]=useState(Cookies.get());
 
   useEffect(() => {
     // const loginApiCall = async (payload) => {
@@ -30,16 +31,17 @@ export const AuthContextProvider = ({ children }) => {
     //     credentials: "include",
     //   });
     // };
+    
     (async () => {
       console.log("hello world");
-
-      const token = Cookies.get("token");
+     
+      //const token = Cookies.get("token");
       console.log("token: ", token);
       console.log("user from context: ", user);
 
       if (token) {
         const isValid = await axios.get(`${baseURL}/user/protectroute`, {
-          withCredntials: true,
+          withCredentials: true,
           credentials: "include",
         });
         console.log("isvalid: ", isValid);
@@ -60,7 +62,7 @@ export const AuthContextProvider = ({ children }) => {
         //setIsAuthenticated(false);
       }
     })();
-  }, []);
+  }, [isAuthenticated]);
 
   return (
     <AuthContext.Provider
