@@ -40,6 +40,7 @@ export const AuthContextProvider = ({ children }) => {
       console.log("user from context: ", user);
 
       if (token) {
+        try{
         const isValid = await axios.get(`${baseURL}/user/protectroute`, {
           withCredentials: true,
           credentials: "include",
@@ -55,14 +56,22 @@ export const AuthContextProvider = ({ children }) => {
           localStorage.removeItem("user");
           setIsAuthenticated(false);
         }
-      } else {
+      }catch (error) {
+        console.error("Error validating token:", error);
+        localStorage.removeItem("user");
+        localStorage.removeItem("isAuthenticated");
+        setIsAuthenticated(false);
+        setUser(null);
+      } }
+
+      else {
         console.log("Token not found from context");
         localStorage.removeItem("user");
         localStorage.removeItem("isAuthenticated");
         //setIsAuthenticated(false);
       }
     })();
-  }, [isAuthenticated]);
+  }, [token,isAuthenticated]);
 
   return (
     <AuthContext.Provider
