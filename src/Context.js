@@ -1,5 +1,3 @@
-
-
 import axios from "axios";
 import { createContext, useState, useEffect } from "react";
 import { baseURL } from "./baseURL";
@@ -16,7 +14,7 @@ export const AuthContextProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(() => {
     return localStorage.getItem("isAuthenticated") === "true";
   });
-  const [token,setToken]=useState(Cookies.get());
+  //const [token,setToken]=useState(Cookies.get());
 
   useEffect(() => {
     // const loginApiCall = async (payload) => {
@@ -31,47 +29,46 @@ export const AuthContextProvider = ({ children }) => {
     //     credentials: "include",
     //   });
     // };
-    
+
     (async () => {
       console.log("hello world");
-     
-      //const token = Cookies.get("token");
+
+      const token = Cookies.get("token");
       console.log("token: ", token);
       console.log("user from context: ", user);
 
       if (token) {
-        try{
-        const isValid = await axios.get(`${baseURL}/user/protectroute`, {
-          withCredentials: true,
-          credentials: "include",
-        });
-        console.log("isvalid: ", isValid);
-        if (isValid.status === 200) {
-          setUser(isValid.data);
-          console.log("user from isvalid: ", user);
-          setIsAuthenticated(true);
-          localStorage.setItem("user", JSON.stringify(isValid.data));
-          localStorage.setItem("isAuthenticated", true);
-        } else {
+        try {
+          const isValid = await axios.get(`${baseURL}/user/`, {
+            withCredentials: true,
+            credentials: "include",
+          });
+          console.log("isvalid: ", isValid);
+          if (isValid.status === 200) {
+            setUser(isValid.data);
+            console.log("user from isvalid: ", user);
+            setIsAuthenticated(true);
+            localStorage.setItem("user", JSON.stringify(isValid.data));
+            localStorage.setItem("isAuthenticated", true);
+          } else {
+            localStorage.removeItem("user");
+            setIsAuthenticated(false);
+          }
+        } catch (error) {
+          console.error("Error validating token:", error);
           localStorage.removeItem("user");
+          localStorage.removeItem("isAuthenticated");
           setIsAuthenticated(false);
+          setUser(null);
         }
-      }catch (error) {
-        console.error("Error validating token:", error);
-        localStorage.removeItem("user");
-        localStorage.removeItem("isAuthenticated");
-        setIsAuthenticated(false);
-        setUser(null);
-      } }
-
-      else {
+      } else {
         console.log("Token not found from context");
         localStorage.removeItem("user");
         localStorage.removeItem("isAuthenticated");
         //setIsAuthenticated(false);
       }
     })();
-  }, [token,isAuthenticated]);
+  }, [ isAuthenticated]);
 
   return (
     <AuthContext.Provider
@@ -83,5 +80,3 @@ export const AuthContextProvider = ({ children }) => {
 };
 
 export default AuthContext;
-
-
