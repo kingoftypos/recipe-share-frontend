@@ -42,7 +42,7 @@ const Header = () => {
         </div>
         <Popover.Group className="hidden lg:flex lg:gap-x-12">
           <Link
-            href="#"
+            to="/recipes"
             className="text-sm font-semibold leading-6 text-gray-900"
           >
             Recipes
