@@ -2,10 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { baseURL } from "../baseURL";
 import axios from "axios";
 
-const Search = () => {
-    const [result, setResult] = useState([]);
-    const [submit, setSubmit] = useState(false);
-    const [reset, setReset] = useState(false);
+const Search = ({setResult}) => {
     const [name, setName] = useState();
     const [cuisine, setCuisine] = useState();
     const [diet, setDiet] = useState();
@@ -22,26 +19,24 @@ const Search = () => {
         }
     };
 
-    useEffect(() => {
-        if (submit) {
+    let submit=() => {
+        
             const params = {};
             if (name) params.title = name;
             if (cuisine) params.cuisine = cuisine;
             if (diet && diet !== "All") params.isVeg = diet;
             fetchData(params);
-            setSubmit(false);
-        }
-    }, [submit, name, cuisine, diet]);
+        
+    };
 
-    useEffect(() => {
-        if (reset) {
+    let reset=() => {
+       
             fetchData();
             setName();
             setCuisine();
             setDiet();
-            setReset(false);
-        }
-    }, [reset]);
+        
+    };
 
     useEffect(() => {
         fetchData();
@@ -54,7 +49,7 @@ const Search = () => {
                     <form
                         onSubmit={(e) => {
                             e.preventDefault();
-                            setSubmit(true);
+                            submit();
                         }}
                     >
                         <div className="relative mb-10 w-full flex items-center justify-between rounded-md">
@@ -77,7 +72,7 @@ const Search = () => {
                                 type="text"
                                 name="search"
                                 value={name}
-                                onChange={(e) => setName(e.target.value)}
+                                onChange={(e)=>setName(e.target.value)}
                                 className="h-12 w-full cursor-text rounded-md border border-gray-100 bg-gray-100 py-4 pr-40 pl-12 shadow-sm outline-none focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
                                 placeholder="Search by name, type, manufacturer, etc"
                             />
@@ -92,7 +87,7 @@ const Search = () => {
                                     type="text"
                                     id="cuisine"
                                     value={cuisine}
-                                    onChange={(e) => setCuisine(e.target.value)}
+                                    onChange={(e)=>setCuisine(e.target.value)}
                                     placeholder="New-Delhi"
                                     className="mt-2 block w-full rounded-md border border-gray-100 bg-gray-100 px-2 py-2 shadow-sm outline-none focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
                                 />
@@ -106,7 +101,7 @@ const Search = () => {
                                 <select
                                     id="diet"
                                     value={diet}
-                                    onChange={(e) => setDiet(e.target.value)}
+                                    onChange={(e)=>setDiet(e.target.value)}
                                     className="mt-2 block w-full rounded-md border border-gray-100 bg-gray-100 px-2 py-2 shadow-sm outline-none focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
                                 >
                                     <option value="">All</option>
@@ -120,7 +115,7 @@ const Search = () => {
                             <button
                                 type="button"
                                 className="rounded-lg bg-gray-200 px-8 py-2 font-medium text-gray-700 outline-none hover:opacity-80 focus:ring"
-                                onClick={() => setReset(true)}
+                                onClick={reset}
                             >
                                 Reset
                             </button>
