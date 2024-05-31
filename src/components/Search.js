@@ -2,40 +2,36 @@ import React, { useEffect, useState } from 'react';
 import { baseURL } from "../baseURL";
 import axios from "axios";
 
-const Search = ({setResult}) => {
-    const [name, setName] = useState();
-    const [cuisine, setCuisine] = useState();
-    const [diet, setDiet] = useState();
+const Search = ({ setResult }) => {
+    const [name, setName] = useState('');
+    const [cuisine, setCuisine] = useState('');
+    const [diet, setDiet] = useState(''); 
 
     const fetchData = async (params = {}) => {
         try {
             let res = await axios.get(`${baseURL}/recipe`, { params });
             console.log(res);
-            let arr = res.data.recipe.map((ele) => ele._id);
-            console.log(arr);
+            let arr = res.data.recipe.map((ele) => ele);
+           // console.log(arr);
             setResult(arr);
         } catch (error) {
             console.error(error);
         }
     };
 
-    let submit=() => {
-        
-            const params = {};
-            if (name) params.title = name;
-            if (cuisine) params.cuisine = cuisine;
-            if (diet && diet !== "All") params.isVeg = diet;
-            fetchData(params);
-        
+    const submit = () => {
+        const params = {};
+        if (name) params.title = name;
+        if (cuisine) params.cuisine = cuisine;
+        if (diet && diet !== "All") params.isVeg = diet;
+        fetchData(params);
     };
 
-    let reset=() => {
-       
-            fetchData();
-            setName();
-            setCuisine();
-            setDiet();
-        
+    const reset = () => {
+        fetchData();
+        setName('');
+        setCuisine('');
+        setDiet('');
     };
 
     useEffect(() => {
@@ -72,7 +68,7 @@ const Search = ({setResult}) => {
                                 type="text"
                                 name="search"
                                 value={name}
-                                onChange={(e)=>setName(e.target.value)}
+                                onChange={(e) => setName(e.target.value)}
                                 className="h-12 w-full cursor-text rounded-md border border-gray-100 bg-gray-100 py-4 pr-40 pl-12 shadow-sm outline-none focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
                                 placeholder="Search by name, type, manufacturer, etc"
                             />
@@ -87,7 +83,7 @@ const Search = ({setResult}) => {
                                     type="text"
                                     id="cuisine"
                                     value={cuisine}
-                                    onChange={(e)=>setCuisine(e.target.value)}
+                                    onChange={(e) => setCuisine(e.target.value)}
                                     placeholder="New-Delhi"
                                     className="mt-2 block w-full rounded-md border border-gray-100 bg-gray-100 px-2 py-2 shadow-sm outline-none focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
                                 />
@@ -101,7 +97,7 @@ const Search = ({setResult}) => {
                                 <select
                                     id="diet"
                                     value={diet}
-                                    onChange={(e)=>setDiet(e.target.value)}
+                                    onChange={(e) => setDiet(e.target.value)}
                                     className="mt-2 block w-full rounded-md border border-gray-100 bg-gray-100 px-2 py-2 shadow-sm outline-none focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
                                 >
                                     <option value="">All</option>

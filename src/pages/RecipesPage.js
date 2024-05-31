@@ -4,13 +4,13 @@ import Card from '../components/Card';
 
 const RecipesPage = () => {
   let [result, setResult] = useState([]);
-console.log(result);
+//console.log(result);
   return (
     <div className="flex flex-col items-center space-y-8">
       <Search setResult={setResult} />
       <div className="grid grid-cols-1 md:grid-cols-2 gap-24">
-        {result.map((item) => (
-          <Card id={item} />
+      {result.map((item) => (
+          <Card key={item._id} id={item._id} />
         ))}
       </div>
     </div>
