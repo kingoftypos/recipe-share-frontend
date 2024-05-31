@@ -14,7 +14,7 @@ export const AuthContextProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(() => {
     return localStorage.getItem("isAuthenticated") === "true";
   });
-  //const [token,setToken]=useState(Cookies.get());
+  const [token, setToken] = useState(Cookies.get());
 
   useEffect(() => {
     // const loginApiCall = async (payload) => {
@@ -33,7 +33,7 @@ export const AuthContextProvider = ({ children }) => {
     (async () => {
       console.log("hello world");
 
-      const token = Cookies.get("token");
+      //const token = Cookies.get("token");
       console.log("token: ", token);
       console.log("user from context: ", user);
 
@@ -53,6 +53,7 @@ export const AuthContextProvider = ({ children }) => {
           } else {
             localStorage.removeItem("user");
             setIsAuthenticated(false);
+            setToken(null);
           }
         } catch (error) {
           console.error("Error validating token:", error);
@@ -60,6 +61,7 @@ export const AuthContextProvider = ({ children }) => {
           localStorage.removeItem("isAuthenticated");
           setIsAuthenticated(false);
           setUser(null);
+          setToken(null);
         }
       } else {
         console.log("Token not found from context");
@@ -68,7 +70,7 @@ export const AuthContextProvider = ({ children }) => {
         //setIsAuthenticated(false);
       }
     })();
-  }, [ isAuthenticated]);
+  }, [isAuthenticated]);
 
   return (
     <AuthContext.Provider
