@@ -3,14 +3,23 @@ import { Dialog, Disclosure, Popover, Transition } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
 import AuthContext from "../Context";
+import { useNavigate } from "react-router-dom";
+
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
+
 const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { user, isAuthenticated } = useContext(AuthContext);
+
+  let navigate=useNavigate();
+  function userprofile()
+    {
+        navigate("/profile");
+    }
 
   // console.log("user: ", user);
   // console.log("isAuthenticated: ", isAuthenticated);
@@ -62,7 +71,7 @@ const Header = () => {
         </Popover.Group>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
           {isAuthenticated ? (
-            <div className="text-sm font-semibold leading-6 text-gray-900 hover:bg-gray-50">
+            <div className="text-sm font-semibold leading-6 text-gray-900 hover:bg-gray-50 " onClick={userprofile}>
               {" "}
               {user?.name}{" "}
             </div>
@@ -97,17 +106,17 @@ const Header = () => {
           <div className="mt-6 flow-root">
             <div className="-my-6 divide-y divide-gray-500/10">
               <div className="space-y-2 py-6">
+                <link
+                  to="/recipe"
+                  className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                >
+                  Recipes
+                </link>
                 <a
                   href="#"
                   className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                 >
-                  Features
-                </a>
-                <a
-                  href="#"
-                  className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                >
-                  Marketplace
+                  About
                 </a>
                 <a
                   href="#"
