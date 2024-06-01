@@ -2,46 +2,37 @@ import React, { useEffect, useState } from 'react';
 import { baseURL } from "../baseURL";
 import axios from "axios";
 
-const Search = () => {
-    const [result, setResult] = useState([]);
-    const [submit, setSubmit] = useState(false);
-    const [reset, setReset] = useState(false);
-    const [name, setName] = useState();
-    const [cuisine, setCuisine] = useState();
-    const [diet, setDiet] = useState();
+const Search = ({ setResult }) => {
+    const [name, setName] = useState('');
+    const [cuisine, setCuisine] = useState('');
+    const [diet, setDiet] = useState(''); 
 
     const fetchData = async (params = {}) => {
         try {
             let res = await axios.get(`${baseURL}/recipe`, { params });
             console.log(res);
-            let arr = res.data.recipe.map((ele) => ele._id);
-            console.log(arr);
+            let arr = res.data.recipe.map((ele) => ele);
+           // console.log(arr);
             setResult(arr);
         } catch (error) {
             console.error(error);
         }
     };
 
-    useEffect(() => {
-        if (submit) {
-            const params = {};
-            if (name) params.title = name;
-            if (cuisine) params.cuisine = cuisine;
-            if (diet && diet !== "All") params.isVeg = diet;
-            fetchData(params);
-            setSubmit(false);
-        }
-    }, [submit, name, cuisine, diet]);
+    const submit = () => {
+        const params = {};
+        if (name) params.title = name;
+        if (cuisine) params.cuisine = cuisine;
+        if (diet && diet !== "All") params.isVeg = diet;
+        fetchData(params);
+    };
 
-    useEffect(() => {
-        if (reset) {
-            fetchData();
-            setName();
-            setCuisine();
-            setDiet();
-            setReset(false);
-        }
-    }, [reset]);
+    const reset = () => {
+        fetchData();
+        setName('');
+        setCuisine('');
+        setDiet('');
+    };
 
     useEffect(() => {
         fetchData();
@@ -54,7 +45,7 @@ const Search = () => {
                     <form
                         onSubmit={(e) => {
                             e.preventDefault();
-                            setSubmit(true);
+                            submit();
                         }}
                     >
                         <div className="relative mb-10 w-full flex items-center justify-between rounded-md">
@@ -120,7 +111,7 @@ const Search = () => {
                             <button
                                 type="button"
                                 className="rounded-lg bg-gray-200 px-8 py-2 font-medium text-gray-700 outline-none hover:opacity-80 focus:ring"
-                                onClick={() => setReset(true)}
+                                onClick={reset}
                             >
                                 Reset
                             </button>
