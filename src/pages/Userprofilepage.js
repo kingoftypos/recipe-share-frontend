@@ -1,6 +1,5 @@
 import React, { useState, useContext } from 'react'
 import AuthContext from '../Context'
-import Logout from '../components/Logout';
 
 const Userprofilepage = () => {
     const { user } =
@@ -47,7 +46,7 @@ const Userprofilepage = () => {
   </div>
   
 </div>
-<Logout/>
+
 </div>
   )
 }
