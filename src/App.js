@@ -9,6 +9,8 @@ import { AuthContextProvider } from "./Context";
 import CreatePostPage from "./pages/CreatePostPage";
 import RecipesPage from "./pages/RecipesPage";
 import Userprofilepage from "./pages/Userprofilepage";
+import ResetPasswordPage from "./pages/ResetPasswordPage";
+import ForgetPassword from "./pages/ForgetPassword";
 function App() {
   return (
     <div className="">
@@ -22,6 +24,8 @@ function App() {
           <Route path="/recipe/:id" element={<RecipeDetailPage />} />;
           <Route path="/create-recipe" element={<CreatePostPage />} />
           <Route path="/profile" element={<Userprofilepage/>}/>
+          <Route path="/reset-password/:id/:token" element={<ResetPasswordPage/>}/>
+          <Route path="forget-password" element={<ForgetPassword/>}/>
         </Routes>
         {/* <Card id="6628fbee2c3b3029d8cc4a1b"/> */}
       </AuthContextProvider>
