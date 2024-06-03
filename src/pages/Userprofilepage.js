@@ -19,9 +19,8 @@ const Userprofilepage = () => {
   };
 
   const confirmNameChange = async() => {
-    let userid=user._id;
     try{
-    const res= await axios.patch(`${baseURL}/user/${userid}`,{name :newName,email :newEmail})
+    const res= await axios.patch(`${baseURL}/user`,{name :newName,email :newEmail})
     if(res)
       console.log("details updated successfully");
     }catch(err)
@@ -34,9 +33,9 @@ const Userprofilepage = () => {
   };
 
   const confirmEmailChange = async() => {
-    let userid=user._id;
+    
     try{
-    const res= await axios.patch(`${baseURL}/user/${userid}`,{name :newName, email:newEmail})
+    const res= await axios.patch(`${baseURL}/user`,{name :newName, email:newEmail})
     if(res)
       console.log("details updated successfully");
     }catch(err)
