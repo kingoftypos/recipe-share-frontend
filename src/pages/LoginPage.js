@@ -13,17 +13,9 @@ const LoginPage = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const { loginApiCall, setUser, setIsAuthenticated, user } =
-    useContext(AuthContext);
+  const { setIsAuthenticated, user } = useContext(AuthContext);
   const submitHandler = async (e) => {
     e.preventDefault();
-
-    // let payload = {
-    //   email,
-    //   password,
-    // };
-    // await loginApiCall(payload);
-
     try {
       await axios.post(
         `${baseURL}/user/login`,
@@ -38,15 +30,6 @@ const LoginPage = () => {
           },
         }
       );
-      const res = await axios.get(`${baseURL}/user`, {
-        withCredentials: true,
-        credentials: "include",
-      });
-      console.log("res data from login: ", res.data);
-      setUser(res.data);
-
-      setIsAuthenticated(true);
-      console.log("user from login: ", user);
       Swal.fire({
         icon: "success",
         title: "Login Successful ",

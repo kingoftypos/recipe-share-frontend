@@ -20,14 +20,17 @@ function App() {
           <Route path="/signup" element={<SignUpPage />} />;
           <Route path="/login" element={<LoginPage />} />;
           <Route path="/" element={<Home />} />;
-          <Route path="/recipes" element={<RecipesPage/>}/>;
+          <Route path="/recipes" element={<RecipesPage />} />;
           <Route path="/recipe/:id" element={<RecipeDetailPage />} />;
           <Route path="/create-recipe" element={<CreatePostPage />} />
-          <Route path="/profile" element={<Userprofilepage/>}/>
-          <Route path="/reset-password/:id/:token" element={<ResetPasswordPage/>}/>
-          <Route path="forget-password" element={<ForgetPassword/>}/>
+          <Route path="/profile" element={<Userprofilepage />} />
+          <Route
+            path="/reset-password/:id/:token"
+            element={<ResetPasswordPage />}
+          />
+          <Route path="forget-password" element={<ForgetPassword />} />
         </Routes>
-        {/* <Card id="6628fbee2c3b3029d8cc4a1b"/> */}
+        <Footer />
       </AuthContextProvider>
     </div>
   );

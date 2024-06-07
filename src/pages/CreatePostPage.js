@@ -9,7 +9,11 @@ import Swal from "sweetalert2";
 const CreatePostPage = () => {
   const { isAuthenticated } = useContext(AuthContext);
   console.log("isAuth: ", isAuthenticated);
-  //const navigate = useNavigate();
+  const navigate = useNavigate();
+
+  if (isAuthenticated === false) {
+    navigate("/login", { replace: true });
+  }
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -57,7 +61,16 @@ const CreatePostPage = () => {
           withCredentials: true,
         }
       );
-      console.log(res);
+      if (res.status === 200) {
+        Swal.fire({
+          title: "Success!",
+          text: "Recipe Created Successfully",
+          icon: "success",
+          confirmButtonText: "Ok",
+        });
+        navigate("/");
+      }
+      setError(error);
     } catch (error) {
       Swal.fire({
         title: "Error!",

@@ -14,6 +14,7 @@ const RecipeDetailPage = () => {
     (async () => {
       let res = await axios.get(`${baseURL}/recipe/${id}`);
       console.log(res.data);
+
       setRecipe(res.data);
       setSteps(res.data.steps);
       setMainIngridents(res.data.mainIngredients);

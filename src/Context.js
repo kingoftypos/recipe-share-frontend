@@ -11,25 +11,14 @@ export const AuthContextProvider = ({ children }) => {
     return savedUser ? JSON.parse(savedUser) : null;
   });
 
+  
+
   const [isAuthenticated, setIsAuthenticated] = useState(() => {
     return localStorage.getItem("isAuthenticated") === "true";
   });
   const [token, setToken] = useState(Cookies.get());
 
   useEffect(() => {
-    // const loginApiCall = async (payload) => {
-    //   await axios.post(`${baseURL}/user/login`, payload, {
-    //     withCredentials: true,
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //   });
-    //   const user = await axios.get(`${baseURL}/user`, {
-    //     withCredentials: true,
-    //     credentials: "include",
-    //   });
-    // };
-
     (async () => {
       console.log("hello world");
 
