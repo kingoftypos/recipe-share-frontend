@@ -11,6 +11,8 @@ import RecipesPage from "./pages/RecipesPage";
 import Userprofilepage from "./pages/Userprofilepage";
 import ResetPasswordPage from "./pages/ResetPasswordPage";
 import ForgetPassword from "./pages/ForgetPassword";
+
+import Footer from "./components/Footer";
 function App() {
   return (
     <div className="">
