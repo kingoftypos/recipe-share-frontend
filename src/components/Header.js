@@ -16,9 +16,7 @@ const Header = () => {
   const { user, setUser, setIsAuthenticated, isAuthenticated } =
     useContext(AuthContext);
 
-  useEffect(() => {
-    
-  });
+  useEffect(() => {}, [isAuthenticated]);
 
   let navigate = useNavigate();
   function userprofile() {
