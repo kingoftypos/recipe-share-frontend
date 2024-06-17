@@ -32,7 +32,7 @@ function App() {
           />
           <Route path="forget-password" element={<ForgetPassword />} />
         </Routes>
-        <Footer />
+        {/* <Footer /> */}
       </AuthContextProvider>
     </div>
   );
