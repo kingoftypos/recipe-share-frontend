@@ -119,7 +119,7 @@ const Userprofilepage = () => {
           </div>
         </div>
       </div>
-      {/* <MyRecipes /> */}
+      <MyRecipes />
     </div>
   );
 };
