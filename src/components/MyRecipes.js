@@ -3,6 +3,7 @@ import AuthContext from "../Context";
 import axios from "axios";
 import { baseURL } from "../baseURL";
 import Swal from "sweetalert2";
+import { Link } from "react-router-dom";
 
 const MyRecipes = () => {
   const { isAutheticated } = useContext(AuthContext);
@@ -47,35 +48,41 @@ const MyRecipes = () => {
   return (
     <div>
       <div className="mx-16">
-        <h2 className="my-8 text-center text-3xl font-semibold">Your Recipes</h2>
+        <h2 className="my-8 text-center text-3xl font-semibold">
+          Your Recipes
+        </h2>
         <div className=" grid gap-y-12 grid-cols-4 ">
           {recipes.map((recipe, index) => {
             return (
               <div className="w-10/12 bg-slate-200 " key={index}>
                 <div className="border   ">
-                  <div>
+                  <div className="flex flex-col justify-between">
                     <div>
-                      <img
-                        src={recipe.coverImg}
-                        alt=""
-                        className="h-32 w-full object-cover"
-                      />
-                    </div>
-                    <div>
-                      <div className="text-center py-2 text-lg font-medium">
-                        {recipe.title}
+                      <div>
+                        <img
+                          src={recipe.coverImg}
+                          alt=""
+                          className="h-32 w-full object-cover"
+                        />
                       </div>
-                      <div className="px-3 text-sm font-normal">
-                        {recipe.description}
+                      <div>
+                        <div className="text-center py-2 text-lg font-medium">
+                          {recipe.title}
+                        </div>
+                        <div className="px-3 text-sm font-normal">
+                          {recipe.description}
+                        </div>
                       </div>
                     </div>
                     <div className="px-6 py-4">
-                      <button
-                        type="button"
-                        className="w-24 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-                      >
-                        Edit
-                      </button>
+                      <Link to={`/edit/recipe/${recipe._id}`}>
+                        <button
+                          type="button"
+                          className="w-24 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+                        >
+                          Edit
+                        </button>
+                      </Link>
                       <button
                         onClick={() => deleteRecipeHandler(recipe._id)}
                         type="button"

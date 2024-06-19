@@ -13,6 +13,7 @@ import ResetPasswordPage from "./pages/ResetPasswordPage";
 import ForgetPassword from "./pages/ForgetPassword";
 
 import Footer from "./components/Footer";
+import EditRecipePage from "./pages/EditRecipePage";
 function App() {
   return (
     <div className="">
@@ -31,6 +32,7 @@ function App() {
             element={<ResetPasswordPage />}
           />
           <Route path="forget-password" element={<ForgetPassword />} />
+          <Route path="/edit/recipe/:id" element={<EditRecipePage />} />
         </Routes>
         {/* <Footer /> */}
       </AuthContextProvider>
