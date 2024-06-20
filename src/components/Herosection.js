@@ -2,10 +2,9 @@ import { Dialog } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import Homepagepic from "../assets/pexels-ella-olsson-572949-1640777.jpg";
 import { Link } from "react-router-dom";
-const HeroSection=()=>{
-
-return (
-<section className="text-gray-600 body-font bg-orange-50">
+const HeroSection = () => {
+  return (
+    <section className="text-gray-600 body-font bg-orange-50">
       <div className="container mx-auto flex px-5 py-24 md:flex-row flex-col items-center">
         <div className="lg:flex-grow md:w-1/2 lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-16 md:mb-0 items-center text-center">
           <h1 className="title-font sm:text-5xl text-4xl mb-4 font-medium text-gray-900">
@@ -20,7 +19,7 @@ return (
           </p>
           <div className="flex justify-center">
             <button className="inline-flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">
-              <Link to="/recipe/6628fbee2c3b3029d8cc4a1b">Explore</Link>
+              <Link to="/recipes">Explore</Link>
             </button>
           </div>
         </div>
@@ -34,5 +33,5 @@ return (
       </div>
     </section>
   );
-}
+};
 export default HeroSection;

@@ -51,12 +51,7 @@ const Header = () => {
       >
         <div className="flex lg:flex-1">
           <Link to="/" className="-m-1.5 p-1.5">
-            <span className="sr-only">Your Company</span>
-            <img
-              className="h-8 w-auto"
-              src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-              alt=""
-            />
+            <span className="text-lg font-medium">CusineConnect</span>
           </Link>
         </div>
         <div className="flex lg:hidden">
@@ -91,7 +86,7 @@ const Header = () => {
         </Popover.Group>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
           {isAuthenticated ? (
-            <div className="flex gap-4">
+            <div className="flex gap-4 cursor-pointer">
               <div className="text-sm font-semibold leading-6 text-gray-900 hover:bg-gray-50">
                 <Link to="/create-recipe">Create Recipe</Link>
               </div>

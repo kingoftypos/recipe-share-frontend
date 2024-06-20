@@ -1,8 +1,16 @@
 import React from "react";
 import { Link } from "react-router-dom";
 const RandomRecipeCard = ({ recipe }) => {
+
+  const truncateDescription = (text, maxLength) => {
+    if (text && text.length > maxLength) {
+      return text.substring(0, maxLength) + "...";
+    } else {
+      return text;
+    }
+  };
   return (
-    <div className="h-72">
+    <div className="h-72 mb-5 ">
       <Link
         to={`/recipe/${recipe._id}`}
         className="flex flex-col items-center border border-gray-200 shadow md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 h-72"
@@ -17,7 +25,7 @@ const RandomRecipeCard = ({ recipe }) => {
             {recipe.title}
           </h5>
           <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-            {recipe.description}
+            {truncateDescription(recipe.description, 150)}
           </p>
         </div>
       </Link>

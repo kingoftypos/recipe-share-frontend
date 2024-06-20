@@ -54,46 +54,48 @@ const MyRecipes = () => {
         <div className=" grid gap-y-12 grid-cols-4 ">
           {recipes.map((recipe, index) => {
             return (
-              <div className="w-10/12 bg-slate-200 " key={index}>
-                <div className="border   ">
-                  <div className="flex flex-col justify-between">
-                    <div>
+              <Link to={`/recipe/${recipe._id}`}>
+                <div className="w-10/12 bg-slate-200 " key={index}>
+                  <div className="border   ">
+                    <div className="flex flex-col justify-between">
                       <div>
-                        <img
-                          src={recipe.coverImg}
-                          alt=""
-                          className="h-32 w-full object-cover"
-                        />
-                      </div>
-                      <div>
-                        <div className="text-center py-2 text-lg font-medium">
-                          {recipe.title}
+                        <div>
+                          <img
+                            src={recipe.coverImg}
+                            alt=""
+                            className="h-32 w-full object-cover"
+                          />
                         </div>
-                        <div className="px-3 text-sm font-normal">
-                          {recipe.description}
+                        <div>
+                          <div className="text-center py-2 text-lg font-medium">
+                            {recipe.title}
+                          </div>
+                          <div className="px-3 text-sm font-normal">
+                            {recipe.description}
+                          </div>
                         </div>
                       </div>
-                    </div>
-                    <div className="px-6 py-4">
-                      <Link to={`/edit/recipe/${recipe._id}`}>
+                      <div className="px-6 py-4">
+                        <Link to={`/edit/recipe/${recipe._id}`}>
+                          <button
+                            type="button"
+                            className="w-24 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+                          >
+                            Edit
+                          </button>
+                        </Link>
                         <button
+                          onClick={() => deleteRecipeHandler(recipe._id)}
                           type="button"
-                          className="w-24 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+                          className="w-24 focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
                         >
-                          Edit
+                          Delete
                         </button>
-                      </Link>
-                      <button
-                        onClick={() => deleteRecipeHandler(recipe._id)}
-                        type="button"
-                        className="w-24 focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
-                      >
-                        Delete
-                      </button>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
+              </Link>
             );
           })}
         </div>
