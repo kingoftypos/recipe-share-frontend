@@ -1,10 +1,13 @@
 import axios from "axios";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { baseURL } from "../baseURL";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { FaCircle } from "react-icons/fa6";
 import { CiBookmark } from "react-icons/ci";
+import AuthContext from "../Context";
 const RecipeDetailPage = () => {
+  const { isAuthenticated } = useContext(AuthContext);
+  const navigate = useNavigate();
   let { id } = useParams();
   const [recipe, setRecipe] = useState([]);
   const [steps, setSteps] = useState([]);
@@ -25,9 +28,14 @@ const RecipeDetailPage = () => {
 
   const saveRecipeHandler = async () => {
     try {
-      const res = await axios.patch(`${baseURL}/recipe/saverecipes/${id}`);
-      if (res.status === 200) {
-        alert("Recipe saved successfully!");
+      if (isAuthenticated === true) {
+        const res = await axios.patch(`${baseURL}/recipe/saverecipes/${id}`);
+        if (res.status === 200) {
+          alert("Recipe saved successfully!");
+        }
+      } else {
+        alert("Please login to save the recipe!");
+        navigate("/login");
       }
     } catch (error) {}
   };
@@ -63,7 +71,10 @@ const RecipeDetailPage = () => {
                     }}
                   />
                 )}
-                <CiBookmark onClick={saveRecipeHandler} className="cursor-pointer" />
+                <CiBookmark
+                  onClick={saveRecipeHandler}
+                  className="cursor-pointer"
+                />
               </h2>
               <span className="ml-28 mb-6 mt-4 text-s">
                 By {recipe.createdBy}
