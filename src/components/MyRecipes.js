@@ -1,12 +1,11 @@
-import React, { useContext, useEffect, useState } from "react";
-import AuthContext from "../Context";
+import React, { useEffect, useState } from "react";
+
 import axios from "axios";
 import { baseURL } from "../baseURL";
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
 
 const MyRecipes = () => {
-  const { isAutheticated } = useContext(AuthContext);
   const [recipes, setRecipes] = useState([]);
   useEffect(() => {
     (async () => {
@@ -14,6 +13,7 @@ const MyRecipes = () => {
       setRecipes(res.data.recipes);
     })();
   }, []);
+  console.log(recipes);
   const deleteRecipeHandler = async (id) => {
     // console.log("id", id);
     Swal.fire({
@@ -41,6 +41,7 @@ const MyRecipes = () => {
     const newRecipes = await axios.get(`${baseURL}/user/recipes`);
     setRecipes(newRecipes.data.recipes);
   };
+
   if (recipes.length === 0) {
     return <h1>No recipes</h1>;
   }

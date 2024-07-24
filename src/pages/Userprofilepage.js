@@ -3,9 +3,15 @@ import AuthContext from "../Context";
 import axios from "axios";
 import { baseURL } from "../baseURL";
 import MyRecipes from "../components/MyRecipes";
+import { useNavigate } from "react-router-dom";
+import SavedRecipe from "../components/SavedRecipe";
 
 const Userprofilepage = () => {
-  const { user, setUser } = useContext(AuthContext);
+  const { user, setUser, isAuthenticated } = useContext(AuthContext);
+  const navigate = useNavigate();
+  if (isAuthenticated === false) {
+    navigate("/login");
+  }
   const [isEditingName, setIsEditingName] = useState(false);
   const [isEditingEmail, setIsEditingEmail] = useState(false);
   const [newName, setNewName] = useState(user.name);
@@ -120,6 +126,7 @@ const Userprofilepage = () => {
         </div>
       </div>
       <MyRecipes />
+      <SavedRecipe />
     </div>
   );
 };

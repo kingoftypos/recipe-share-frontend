@@ -11,10 +11,8 @@ export const AuthContextProvider = ({ children }) => {
     return savedUser ? JSON.parse(savedUser) : null;
   });
 
-  
-
   const [isAuthenticated, setIsAuthenticated] = useState(() => {
-    return localStorage.getItem("isAuthenticated") === "true";
+    return localStorage.getItem("isAuthenticated");
   });
   const [token, setToken] = useState(Cookies.get());
 
@@ -41,13 +39,12 @@ export const AuthContextProvider = ({ children }) => {
             localStorage.setItem("isAuthenticated", true);
           } else {
             localStorage.removeItem("user");
+            localStorage.setItem("isAuthenticated", false);
             setIsAuthenticated(false);
-            setToken(null);
           }
         } catch (error) {
           console.error("Error validating token:", error);
           localStorage.removeItem("user");
-          localStorage.removeItem("isAuthenticated");
           setIsAuthenticated(false);
           setUser(null);
           setToken(null);
@@ -55,8 +52,10 @@ export const AuthContextProvider = ({ children }) => {
       } else {
         console.log("Token not found from context");
         localStorage.removeItem("user");
-        localStorage.removeItem("isAuthenticated");
-        //setIsAuthenticated(false);
+        // localStorage.removeItem("isAuthenticated");
+        localStorage.setItem("isAuthenticated", false);
+
+        setIsAuthenticated(false);
       }
     })();
   }, [isAuthenticated]);

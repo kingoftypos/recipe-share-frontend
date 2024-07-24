@@ -15,7 +15,6 @@ const Logout = () => {
     }
 
     localStorage.removeItem("user");
-    localStorage.removeItem("isAuthenticated");
     setUser(null);
     setIsAuthenticated(false);
     navigate("/");

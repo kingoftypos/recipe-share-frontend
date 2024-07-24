@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { baseURL } from "../baseURL";
 import { useParams } from "react-router-dom";
 import { FaCircle } from "react-icons/fa6";
-
+import { CiBookmark } from "react-icons/ci";
 const RecipeDetailPage = () => {
   let { id } = useParams();
   const [recipe, setRecipe] = useState([]);
@@ -22,6 +22,15 @@ const RecipeDetailPage = () => {
       //console.log(steps);
     })();
   }, [setRecipe]);
+
+  const saveRecipeHandler = async () => {
+    try {
+      const res = await axios.patch(`${baseURL}/recipe/saverecipes/${id}`);
+      if (res.status === 200) {
+        alert("Recipe saved successfully!");
+      }
+    } catch (error) {}
+  };
   return (
     <div className="mt-2">
       <div className="">
@@ -54,6 +63,7 @@ const RecipeDetailPage = () => {
                     }}
                   />
                 )}
+                <CiBookmark onClick={saveRecipeHandler} className="cursor-pointer" />
               </h2>
               <span className="ml-28 mb-6 mt-4 text-s">
                 By {recipe.createdBy}
