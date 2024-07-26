@@ -1,3 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.social-media-btn{
+    background-color: rgba(217, 217, 217, 0.3);
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+}
+.icon{
+    width: 20px;
+    height: 35px;
+    align-self: center;
+}

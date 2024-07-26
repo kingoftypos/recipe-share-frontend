@@ -1,33 +1,24 @@
-// import React from "react";
-// import { Link } from "react-router-dom";
+import React from "react";
 
-// //get props about the recipe
-// const RecipeCard = () => {
-//   return (
+const RecipeCard = ({ children, img, ...props }) => {
+  return (
+    <div
+      {...props}
+      className="relative w-72 h-96 overflow-hidden rounded-2xl sha group "
+    >
+      <img
+        src={img}
+        className="transition-transform group-hover:scale-110 duration-200 w-72 h-96 object-cover"
+      />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/100 to-transparent"></div>
+      <div
+        className="absolute inset-0 flex items-end bg-gradient-to-t from-black/60 to-transparent
+      "
+      >
+        <div className="p-4 text-white"> {children} </div>
+      </div>
+    </div>
+  );
+};
 
-//               <Link to={`/recipe/${recipe._id}`}>
-//                 <div className="w-10/12 bg-slate-200 " key={index}>
-//                   <div className="border   ">
-//                     <div className="flex flex-col justify-between">
-//                       <div>
-//                         <div>
-//                           <img
-//                             src={recipe.coverImg}
-//                             alt=""
-//                             className="h-32 w-full object-cover"
-//                           />
-//                         </div>
-//                         <div>
-//                           <div className="text-center py-2 text-lg font-medium">
-//                             {recipe.title}
-//                           </div>
-//                           <div className="px-3 text-sm font-normal">
-//                             {recipe.description}
-//                           </div>
-//                         </div>
-//                       </div>
-//     </Link>
-//   );
-// };
-
-// export default RecipeCard;
+export default RecipeCard;

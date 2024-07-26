@@ -4,6 +4,7 @@ import { baseURL } from "../baseURL";
 import { useNavigate, useParams } from "react-router-dom";
 import { FaCircle } from "react-icons/fa6";
 import { CiBookmark } from "react-icons/ci";
+import { FaShareAlt } from "react-icons/fa";
 import AuthContext from "../Context";
 const RecipeDetailPage = () => {
   const { isAuthenticated } = useContext(AuthContext);
@@ -13,6 +14,7 @@ const RecipeDetailPage = () => {
   const [steps, setSteps] = useState([]);
   const [mainIngridents, setMainIngridents] = useState([]);
   const [allIngridents, setAllIngridents] = useState([]);
+  const [url, setUrl] = useState("");
   useEffect(() => {
     (async () => {
       let res = await axios.get(`${baseURL}/recipe/${id}`);
@@ -39,6 +41,14 @@ const RecipeDetailPage = () => {
       }
     } catch (error) {}
   };
+  const shareHandler = async () => {
+    try {
+      const res = await axios.get(`${baseURL}/recipe/sharerecipe/${id}`);
+      setUrl(res.data.recipeUrl);
+      // console.log(res.data);
+    } catch (error) {}
+  };
+  // console.log(url);
   return (
     <div className="mt-2">
       <div className="">
@@ -75,6 +85,15 @@ const RecipeDetailPage = () => {
                   onClick={saveRecipeHandler}
                   className="cursor-pointer"
                 />
+                <a
+                  href="whatsapp://send?text= {url}"
+                  data-action="share/whatsapp/share"
+                >
+                  <FaShareAlt
+                    className="cursor-pointer"
+                    onClick={shareHandler}
+                  />
+                </a>
               </h2>
               <span className="ml-28 mb-6 mt-4 text-s">
                 By {recipe.createdBy}
