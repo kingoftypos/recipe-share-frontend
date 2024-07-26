@@ -4,7 +4,7 @@ const RecipeCard = ({ children, img, ...props }) => {
   return (
     <div
       {...props}
-      className="relative w-72 h-96 overflow-hidden rounded-2xl sha group "
+      className="relative w-72 h-96 overflow-hidden rounded-2xl sha group mb-3 bor box-shadow "
     >
       <img
         src={img}
