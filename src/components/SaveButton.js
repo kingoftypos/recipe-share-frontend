@@ -7,17 +7,18 @@ import { baseURL } from "../baseURL";
 
 const SaveButton = ({ id, saved }) => {
   const { isAuthenticated, user } = useContext(AuthContext);
-  const navigate = useNavigate;
+  const navigate = useNavigate();
   const [recipeSaved, setRecipeSaved] = useState(false);
-  console.log("saved: ", saved.includes(user._id));
 
   useEffect(() => {
-    if (saved.includes(user._id)) {
+    if (isAuthenticated && saved.includes(user._id)) {
       setRecipeSaved(true);
     } else {
       setRecipeSaved(false);
     }
-  }, [saved, user._id]);
+  }, [isAuthenticated, saved]);
+
+  // console.log("saved: ", saved.includes(user._id));
 
   const saveButtonHandler = async (e) => {
     e.stopPropagation();
