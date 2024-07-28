@@ -3,11 +3,10 @@ import Search from "../components/Search";
 import Card from "../components/Card";
 import RecipeCard from "../components/RecipeCard";
 import { FaRegHeart } from "react-icons/fa";
-import { CiBookmark } from "react-icons/ci";
-import { FaShareAlt } from "react-icons/fa";
 import { FaCircle } from "react-icons/fa6";
 import ShareIcon from "../components/ShareIcon";
 import { Link } from "react-router-dom";
+import SaveButton from "../components/SaveButton";
 
 const RecipesPage = () => {
   let [result, setResult] = useState([]);
@@ -23,7 +22,12 @@ const RecipesPage = () => {
         {result.map((item) => {
           return (
             <Link to={`/recipe/${item._id}`}>
-              <RecipeCard key={item._id} id={item._id} img={item.coverImg}>
+              <RecipeCard
+                key={item._id}
+                id={item._id}
+                img={item.coverImg}
+                recipe={item}
+              >
                 <div className="flex gap-3 items-center">
                   <h3 className="text-xl font-bold mb-2 self-center">
                     {item.title}
@@ -66,15 +70,7 @@ const RecipesPage = () => {
                   >
                     <FaRegHeart className="icon" />
                   </button>
-                  <button
-                    className="social-media-btn"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      e.preventDefault();
-                    }}
-                  >
-                    <CiBookmark className="icon" />
-                  </button>
+                  <SaveButton id={item._id} saved={item.savedBy} />
                   <div
                     onClick={(e) => {
                       e.stopPropagation();
