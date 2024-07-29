@@ -7,6 +7,7 @@ import { FaCircle } from "react-icons/fa6";
 import ShareIcon from "../components/ShareIcon";
 import { Link } from "react-router-dom";
 import SaveButton from "../components/SaveButton";
+import LikeButton from "../components/LikeButton";
 
 const RecipesPage = () => {
   let [result, setResult] = useState([]);
@@ -61,15 +62,7 @@ const RecipesPage = () => {
                   rice traditionally cooked in South India.
                 </p>
                 <div className="space-x-4 mt-4 flex">
-                  <button
-                    className="social-media-btn"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      e.preventDefault();
-                    }}
-                  >
-                    <FaRegHeart className="icon" />
-                  </button>
+                  <LikeButton id={item._id} liked={item.likes} />
                   <SaveButton id={item._id} saved={item.savedBy} />
                   <div
                     onClick={(e) => {
