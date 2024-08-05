@@ -30,9 +30,6 @@ const LikeButton = ({ id, liked }) => {
         newRecipeLiked ? "like" : "unlike"
       }/${id}`;
       const res = await axios.patch(url);
-      if (res.status === 200) {
-        alert(`Recipe ${newRecipeLiked ? "Liked" : "unLiked"} successfully!`);
-      }
     } catch (error) {
       console.error("Error updating recipe liked status", error);
       // Roll back the state update in case of an error

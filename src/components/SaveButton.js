@@ -34,13 +34,6 @@ const SaveButton = ({ id, saved }) => {
         newRecipeSaved ? "saverecipes" : "unsaverecipes"
       }/${id}`;
       const res = await axios.patch(url);
-      if (res.status === 200) {
-        alert(
-          `Recipe ${
-            newRecipeSaved ? "saved" : "removed from saved"
-          } successfully!`
-        );
-      }
     } catch (error) {
       console.error("Error updating recipe saved status", error);
       // Roll back the state update in case of an error

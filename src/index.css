@@ -3,11 +3,11 @@
 @tailwind utilities;
 
 .social-media-btn{
-
+    margin: 0 5px !important;
     background-color: rgba(217, 217, 217, 0.3) !important;
     color: #fff !important;
     border: none;
-    padding: 5px 10px !important;
+    padding: 5px 8px !important;
 }
 .icon{
     width: 15px !important;
@@ -25,4 +25,15 @@
 
 .icon-box{
     margin: 0 !important;
+}
+
+.sidebar{
+    margin: 0;
+    padding: 0;
+    width: 200px;
+    background-color: blue;
+    position: fixed;
+   color: #000;
+    height: 100%;
+    overflow: auto;
 }

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { baseURL } from "../baseURL";
 import Swal from "sweetalert2";
-import { Link } from "react-router-dom";
+import Card from "./Card";
 
 const MyRecipes = () => {
   const [recipes, setRecipes] = useState([]);
@@ -13,34 +13,6 @@ const MyRecipes = () => {
       setRecipes(res.data.recipes);
     })();
   }, []);
-  console.log(recipes);
-  const deleteRecipeHandler = async (id) => {
-    // console.log("id", id);
-    Swal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        deleteRecipe(id);
-        Swal.fire({
-          title: "Deleted!",
-          text: "Your file has been deleted.",
-          icon: "success",
-        });
-      }
-    });
-  };
-  const deleteRecipe = async (id) => {
-    // console.log("id from second delete", id);
-    const res = await axios.delete(`${baseURL}/recipe/${id}`);
-    const newRecipes = await axios.get(`${baseURL}/user/recipes`);
-    setRecipes(newRecipes.data.recipes);
-  };
 
   if (recipes.length === 0) {
     return <h1>No recipes</h1>;
@@ -48,56 +20,13 @@ const MyRecipes = () => {
 
   return (
     <div>
-      <div className="mx-16">
-        <h2 className="my-8 text-center text-3xl font-semibold">
+      <div className="mx-2">
+        <h2 className="my-8 text-center text-3xl font-semibold gap-3">
           Your Recipes
         </h2>
         <div className=" grid gap-y-12 grid-cols-4 ">
-          {recipes.map((recipe, index) => {
-            return (
-              <Link to={`/recipe/${recipe._id}`}>
-                <div className="w-10/12 bg-slate-200 " key={index}>
-                  <div className="border   ">
-                    <div className="flex flex-col justify-between">
-                      <div>
-                        <div>
-                          <img
-                            src={recipe.coverImg}
-                            alt=""
-                            className="h-32 w-full object-cover"
-                          />
-                        </div>
-                        <div>
-                          <div className="text-center py-2 text-lg font-medium">
-                            {recipe.title}
-                          </div>
-                          <div className="px-3 text-sm font-normal">
-                            {recipe.description}
-                          </div>
-                        </div>
-                      </div>
-                      <div className="px-6 py-4">
-                        <Link to={`/edit/recipe/${recipe._id}`}>
-                          <button
-                            type="button"
-                            className="w-24 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-                          >
-                            Edit
-                          </button>
-                        </Link>
-                        <button
-                          onClick={() => deleteRecipeHandler(recipe._id)}
-                          type="button"
-                          className="w-24 focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
-                        >
-                          Delete
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </Link>
-            );
+          {recipes.map((item) => {
+            return <Card item={item} setRecipes={setRecipes} />;
           })}
         </div>
       </div>

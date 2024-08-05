@@ -58,7 +58,7 @@ export const AuthContextProvider = ({ children }) => {
         setIsAuthenticated(false);
       }
     })();
-  }, [isAuthenticated]);
+  }, [isAuthenticated, user]);
 
   return (
     <AuthContext.Provider

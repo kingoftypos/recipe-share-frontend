@@ -1,87 +1,73 @@
-import { useState, useEffect } from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-import { baseURL } from "../baseURL";
 import { FaCircle } from "react-icons/fa6";
-import axios from "axios";
-import Likes from "./Likes";
 
-const Card = ({ id }) => {
-  let [recipe, setRecipe] = useState([]);
-  let [mainregion, setMainRegion] = useState([]);
-
-  useEffect(() => {
-    (async () => {
-      let res = await axios.get(`${baseURL}/recipe/${id}`);
-      setRecipe(res.data);
-      setMainRegion(res.data.mainRegion);
-    })();
-  }, [setRecipe]);
-
-  const truncateDescription = (text, maxLength) => {
-    if (text && text.length > maxLength) {
-      return text.substring(0, maxLength) + "...";
-    } else {
-      return text;
-    }
+import RecipeCard from "./RecipeCard";
+import ShareIcon from "./ShareIcon";
+import SaveButton from "./SaveButton";
+import LikeButton from "./LikeButton";
+import AuthContext from "../Context";
+import EditAndDeleteButton from "./EditAndDeleteButton";
+const Card = ({ item, setRecipes }) => {
+  const { user } = useContext(AuthContext);
+  const truncateText = (text) => {
+    return text.length > 100 ? text.substring(0, 99) + "..." : text;
   };
-
   return (
-    <>
-      {/* <Likes /> */}
-      <Link to={`/recipe/${id}`}>
-        <div className="w-72 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-          <img
-            className="w-full h-52 object-fill rounded-t-lg"
-            src={recipe.coverImg}
-            alt=""
-          />
-
-          <div className="p-5">
-            <div className="flex justify-between items-center">
-              <h5 className="mb-2 text-sm font-bold tracking-tight text-gray-900 dark:text-white">
-                {recipe.title}
-              </h5>
-              {recipe.isVeg ? (
-                <FaCircle
-                  style={{
-                    color: "green",
-                    background: "white",
-                    fontSize: "17px",
-                    padding: "4px",
-                    border: "1px solid black",
-                  }}
-                />
-              ) : (
-                <FaCircle
-                  style={{
-                    color: "red",
-                    background: "white",
-                    fontSize: "17px",
-                    padding: "4px",
-                    border: "1px solid black",
-                  }}
-                />
-              )}
-            </div>
-            <p className="mb-3 text-xs text-gray-700 dark:text-orange-300">
-              {truncateDescription(recipe.description, 150)}{" "}
-            </p>
-            {mainregion.length > 1 && (
-              <p className="mb-3 text-xs text-gray-700 dark:text-gray-400">
-                Region :{" "}
-                {mainregion.map((val, i) => {
-                  if (i === mainregion.length - 1) {
-                    return val;
-                  } else {
-                    return val + ",";
-                  }
-                })}
-              </p>
+    <Link to={`/recipe/${item._id}`}>
+      <RecipeCard
+        key={item._id}
+        id={item._id}
+        img={item.coverImg}
+        recipe={item}
+      >
+        <div className="flex gap-3 items-center">
+          <h3 className="text-xl font-bold mb-2 self-center">{item.title}</h3>
+          <span>
+            {item.isVeg ? (
+              <FaCircle
+                style={{
+                  color: "green",
+                  background: "white",
+                  fontSize: "17px",
+                  padding: "4px",
+                  border: "1px solid black",
+                }}
+              />
+            ) : (
+              <FaCircle
+                style={{
+                  color: "red",
+                  background: "white",
+                  fontSize: "17px",
+                  padding: "4px",
+                  border: "1px solid black",
+                }}
+              />
+            )}
+          </span>
+        </div>
+        <p>{truncateText(item.description)}</p>
+        <div className="space-x-2 mt-4 flex">
+          <LikeButton id={item._id} liked={item.likes} />
+          <SaveButton id={item._id} saved={item.savedBy} />
+          <div
+            onClick={(e) => {
+              e.stopPropagation();
+              e.preventDefault();
+            }}
+          >
+            <ShareIcon id={item._id} />
+            {item.createdBy === user._id ? (
+              <EditAndDeleteButton id={item._id} setRecipes={setRecipes} />
+            ) : (
+              <></>
             )}
           </div>
         </div>
-      </Link>
-    </>
+      </RecipeCard>
+    </Link>
   );
 };
+
 export default Card;
