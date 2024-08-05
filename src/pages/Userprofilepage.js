@@ -1,10 +1,9 @@
 import React, { useState, useContext, useEffect } from "react";
 import AuthContext from "../Context";
-import axios from "axios";
-import { baseURL } from "../baseURL";
 import MyRecipes from "../components/MyRecipes";
 import { useNavigate } from "react-router-dom";
 import SavedRecipe from "../components/SavedRecipe";
+import UserProfile from "../components/UserProfile";
 
 const Userprofilepage = () => {
   const { isAuthenticated } = useContext(AuthContext);
@@ -15,7 +14,7 @@ const Userprofilepage = () => {
 
   return (
     <div>
-      <Userprofilepage />
+      <UserProfile />
       <MyRecipes />
       <SavedRecipe />
     </div>
