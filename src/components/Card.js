@@ -9,7 +9,7 @@ import LikeButton from "./LikeButton";
 import AuthContext from "../Context";
 import EditAndDeleteButton from "./EditAndDeleteButton";
 const Card = ({ item, setRecipes }) => {
-  const { user } = useContext(AuthContext);
+  const { user, isAuthenticated } = useContext(AuthContext);
   const truncateText = (text) => {
     return text.length > 100 ? text.substring(0, 99) + "..." : text;
   };
@@ -58,7 +58,7 @@ const Card = ({ item, setRecipes }) => {
             }}
           >
             <ShareIcon id={item._id} />
-            {item.createdBy === user._id ? (
+            {isAuthenticated === true && item.createdBy === user._id ? (
               <EditAndDeleteButton id={item._id} setRecipes={setRecipes} />
             ) : (
               <></>
