@@ -2,12 +2,13 @@ import React from "react";
 import { GridColumn, Header, Button, Popup, Grid } from "semantic-ui-react";
 import { FaShareAlt } from "react-icons/fa";
 import { ImWhatsapp } from "react-icons/im";
+import { baseURL } from "../baseURL";
 import { RiTwitterXFill } from "react-icons/ri";
 import { FaFacebookF } from "react-icons/fa";
 import { FaInstagram } from "react-icons/fa6";
 import { IoIosCopy } from "react-icons/io";
 const ShareIcon = ({ id }) => {
-  const message = `https://recipe-share-frontend.vercel.app/recipes/${id}`;
+  const message = `https://cuisine-connect-teal.vercel.app/recipes/${id}`;
   const shareOnWhatsApp = () => {
     const url = `whatsapp://send?text=${encodeURIComponent(message)}`;
     window.open(url, "_blank");
