@@ -13,11 +13,11 @@ const LoginPage = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const { setIsAuthenticated, user } = useContext(AuthContext);
+  const { setIsAuthenticated, user,setUser } = useContext(AuthContext);
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
-      await axios.post(
+      const res=await axios.post(
         `${baseURL}/user/login`,
         {
           email,
@@ -30,6 +30,7 @@ const LoginPage = () => {
           },
         }
       );
+      console.log(res.data);
       Swal.fire({
         icon: "success",
         title: "Login Successful ",
